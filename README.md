@@ -29,6 +29,11 @@
 ## Project setup
 
 ```bash
+# Installing nest
+$ npm i -g @nestjs/cli
+```
+
+```bash
 $ npm install
 ```
 
