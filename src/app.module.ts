@@ -18,6 +18,8 @@ import { User } from './user/user.entity';
       database: process.env.DB_NAME,
       ssl: true,
       entities: [User],
+      migrations: ['dist/migrations/*{.ts,.js}'],
+      migrationsRun: true,
       // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     }),
     UserModule,
