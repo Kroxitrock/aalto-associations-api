@@ -20,7 +20,6 @@ import { User } from './user/user.entity';
       entities: [User],
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
-      // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     }),
     UserModule,
   ],
