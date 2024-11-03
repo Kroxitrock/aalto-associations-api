@@ -16,7 +16,7 @@ import { User } from './user/user.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      ssl: true,
+      ssl: process.env.DB_SSL === 'true',
       entities: [User],
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
