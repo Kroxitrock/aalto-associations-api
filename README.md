@@ -52,8 +52,11 @@ $ npm run start:prod
 
 ## Create migration
 
-```migration create script
+```bash
+# One time installation script for typeorm
+$ npm i -g typeorm
 
+#Creating the script
 $ typeorm migration:create src/migrations/<migration_name>
 ```
 
