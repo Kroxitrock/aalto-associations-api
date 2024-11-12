@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
+import { AssociationModule } from './association/association.module';
+import { Association } from './association/association.entity';
 
 @Module({
   imports: [
@@ -16,12 +18,13 @@ import { User } from './user/user.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      ssl: true,
-      entities: [User],
+      ssl: false,
+      entities: [User, Association],
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
     }),
     UserModule,
+    AssociationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
