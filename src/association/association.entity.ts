@@ -7,4 +7,22 @@ export class Association {
 
   @Column()
   name: string;
+
+  @Column()
+  logo: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  telegram: string;
+
+  @Column()
+  phone: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  membership_fee: number;
 }
