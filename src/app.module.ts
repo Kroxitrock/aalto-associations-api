@@ -13,7 +13,6 @@ import { AssociationApplicationModule } from './association-application/associat
 import { AssociationApplication } from './association-application/association-application.entity';
 import { EventRequestModule } from './event-request/event-request.module';
 import { EventRequest } from './event-request/event-request.entity';
-import { AssociationMembersService } from './association-members/association-members.service';
 import { AssociationMembersModule } from './association-members/association-members.module';
 import { AssociationMembers } from './association-members/association-member.entity';
 
@@ -28,14 +27,7 @@ import { AssociationMembers } from './association-members/association-member.ent
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       ssl: process.env.DB_SSL === 'true',
-      entities: [
-        User,
-        Association,
-        Event,
-        AssociationApplication,
-        EventRequest,
-        AssociationMembers,
-      ],
+      autoLoadEntities: true,
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
     }),

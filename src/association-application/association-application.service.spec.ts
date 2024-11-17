@@ -9,7 +9,9 @@ describe('AssociationApplicationService', () => {
       providers: [AssociationApplicationService],
     }).compile();
 
-    service = module.get<AssociationApplicationService>(AssociationApplicationService);
+    service = module.get<AssociationApplicationService>(
+      AssociationApplicationService,
+    );
   });
 
   it('should be defined', () => {
