@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
+import { Event } from './event/event.entity';
+import { EventModule } from './event/event.module';
 import { AssociationModule } from './association/association.module';
 import { Association } from './association/association.entity';
 
@@ -19,12 +21,13 @@ import { Association } from './association/association.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       ssl: process.env.DB_SSL === 'true',
-      entities: [User, Association],
+      entities: [User, Association, Event],
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
     }),
     UserModule,
     AssociationModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],
