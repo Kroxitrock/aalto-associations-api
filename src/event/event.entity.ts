@@ -7,16 +7,22 @@ export class Event {
 
   @Column()
   title: string;
+
   @Column()
   description: string;
+
   @Column()
   picture: string;
+
   @Column()
   date: Date;
+
   @Column()
   location: string;
+
   @Column()
   price: number;
+
   @Column()
   capacity: number;
 }

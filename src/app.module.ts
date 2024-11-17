@@ -9,6 +9,12 @@ import { Event } from './event/event.entity';
 import { EventModule } from './event/event.module';
 import { AssociationModule } from './association/association.module';
 import { Association } from './association/association.entity';
+import { AssociationApplicationModule } from './association-application/association-application.module';
+import { AssociationApplication } from './association-application/association-application.entity';
+import { EventRequestModule } from './event-request/event-request.module';
+import { EventRequest } from './event-request/event-request.entity';
+import { AssociationMembersModule } from './association-members/association-members.module';
+import { AssociationMembers } from './association-members/association-member.entity';
 
 @Module({
   imports: [
@@ -21,13 +27,16 @@ import { Association } from './association/association.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       ssl: process.env.DB_SSL === 'true',
-      entities: [User, Association, Event],
+      autoLoadEntities: true,
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
     }),
     UserModule,
     AssociationModule,
     EventModule,
+    AssociationApplicationModule,
+    EventRequestModule,
+    AssociationMembersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
