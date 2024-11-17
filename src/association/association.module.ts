@@ -5,8 +5,8 @@ import { AssociationService } from './association.service';
 import { AssociationController } from './association.controller';
 
 @Module({
-    imports:[TypeOrmModule.forFeature([Association])],
-    providers:[AssociationService],
-    controllers: [AssociationController],
+  imports: [TypeOrmModule.forFeature([Association])],
+  providers: [AssociationService],
+  controllers: [AssociationController],
 })
 export class AssociationModule {}
