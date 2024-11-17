@@ -13,6 +13,9 @@ import { AssociationApplicationModule } from './association-application/associat
 import { AssociationApplication } from './association-application/association-application.entity';
 import { EventRequestModule } from './event-request/event-request.module';
 import { EventRequest } from './event-request/event-request.entity';
+import { AssociationMembersService } from './association-members/association-members.service';
+import { AssociationMembersModule } from './association-members/association-members.module';
+import { AssociationMembers } from './association-members/association-member.entity';
 
 @Module({
   imports: [
@@ -31,6 +34,7 @@ import { EventRequest } from './event-request/event-request.entity';
         Event,
         AssociationApplication,
         EventRequest,
+        AssociationMembers,
       ],
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsRun: true,
@@ -40,6 +44,7 @@ import { EventRequest } from './event-request/event-request.entity';
     EventModule,
     AssociationApplicationModule,
     EventRequestModule,
+    AssociationMembersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

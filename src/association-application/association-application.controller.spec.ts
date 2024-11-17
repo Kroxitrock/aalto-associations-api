@@ -9,7 +9,9 @@ describe('AssociationApplicationController', () => {
       controllers: [AssociationApplicationController],
     }).compile();
 
-    controller = module.get<AssociationApplicationController>(AssociationApplicationController);
+    controller = module.get<AssociationApplicationController>(
+      AssociationApplicationController,
+    );
   });
 
   it('should be defined', () => {
