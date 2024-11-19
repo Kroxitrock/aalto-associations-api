@@ -17,7 +17,7 @@ export class AssociationService {
 
     return this.associationRepository.find({
       where: {
-        name: ILike(nameSearch.trim().toLowerCase()),
+        name: ILike(`%${nameSearch.trim().toLowerCase()}%`),
       },
     });
   }
