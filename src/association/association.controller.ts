@@ -18,7 +18,11 @@ export class AssociationController {
 
   @Get('/:id/events')
   getAssociationEvents(@Param('id') id: number): Promise<Event[]> {
-    console.log(id);
     return this.eventService.findByAssociationId(id);
+  }
+
+  @Get('/:id')
+  getAssociationById(@Param('id') id: number): Promise<Association> {
+    return this.associationService.findOne(id);
   }
 }
