@@ -17,6 +17,10 @@ export class EventService {
     return this.eventRepository.findOneBy({ id });
   }
 
+  findByAssociationId(associationId: number): Promise<Event[]> {
+    return this.eventRepository.findBy({ association: { id: associationId } });
+  }
+
   async remove(id: number): Promise<void> {
     await this.eventRepository.delete(id);
   }

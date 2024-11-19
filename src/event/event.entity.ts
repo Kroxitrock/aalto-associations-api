@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Association } from 'src/association/association.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Event {
@@ -25,4 +32,8 @@ export class Event {
 
   @Column()
   capacity: number;
+
+  @ManyToOne(() => Association, (association) => association.id)
+  @JoinColumn({ name: 'association_id' })
+  association: Association;
 }
