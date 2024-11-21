@@ -10,7 +10,7 @@ export class UserController {
 
   @Get('/me/associations')
   getMyAssociations(): Promise<Association[]> {
-    return this.userService.findOne(1).then((user) => user.associations);
+    return this.userService.findOne(1).then((user) => user.associations ?? []);
   }
 
   @Get('/me/associations/events/upcoming')
@@ -20,6 +20,6 @@ export class UserController {
 
   @Get('/me/events')
   getMyEvents(): Promise<Event[]> {
-    return this.userService.findOne(1).then((user) => user.events);
+    return this.userService.findOne(1).then((user) => user.events ?? []);
   }
 }
