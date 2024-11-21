@@ -1,13 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity';
+import { Association } from 'src/association/association.entity';
+import { Event } from 'src/event/event.entity';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  getHello(): Promise<User[]> {
-    return this.userService.findAll();
+  @Get('/me/associations')
+  getMyAssociations(): Promise<Association[]> {
+    return this.userService.findOne(1).then((user) => user.associations);
+  }
+  @Get('/me/events')
+  getMyEvents(): Promise<Event[]> {
+    return this.userService.findOne(1).then((user) => user.events);
   }
 }
