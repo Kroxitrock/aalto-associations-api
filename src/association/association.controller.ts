@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AssociationService } from './association.service';
 import { Association } from './association.entity';
 import { Event } from '../event/event.entity';
@@ -12,8 +12,10 @@ export class AssociationController {
   ) {}
 
   @Get()
-  getAssociations(): Promise<Association[]> {
-    return this.associationService.findAll();
+  getAssociations(
+    @Query('nameSearch') nameSearch?: string,
+  ): Promise<Association[]> {
+    return this.associationService.findFiltered(nameSearch);
   }
 
   @Get('/:id/events')
