@@ -46,5 +46,5 @@ export class Event {
     joinColumn: { name: 'event_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'user_id', referencedColumnName: 'id' },
   })
-  users: User[];
+  participants: User[];
 }

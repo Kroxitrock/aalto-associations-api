@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from 'src/event/event.entity';
 import { User } from 'src/user/user.entity';
-import { Equal, In, MoreThan, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { mapToUpcomingEventDto, UpcomingEventDto } from './upcoming-event.dto';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class UserService {
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.association', 'association')
       .innerJoin('association.users', 'user')
-      .leftJoin('event.users', 'eventUser', 'eventUser.id = :userId', {
+      .leftJoin('event.participants', 'eventUser', 'eventUser.id = :userId', {
         userId,
       })
       .where('user.id = :userId', { userId })
