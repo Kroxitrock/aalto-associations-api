@@ -25,17 +25,17 @@ export class UserService {
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.association', 'association')
       .innerJoin('association.users', 'user')
-      .leftJoin('event.participants', 'eventUser', 'eventUser.id = :userId', {
-        userId,
-      })
+      .leftJoin('event.participants', 'eventUser')
+      .addSelect(
+        'CASE WHEN MAX(CASE WHEN eventUser.id = :userId THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END',
+        'joined',
+      )
       .where('user.id = :userId', { userId })
       .andWhere('event.date >= :currentDate', {
         currentDate: new Date().toISOString(),
       })
-      .addSelect(
-        'CASE WHEN eventUser.id IS NOT NULL THEN true ELSE false END',
-        'joined',
-      )
+      .groupBy('event.id')
+      .addGroupBy('association.id')
       .orderBy('event.date', 'ASC')
       .getRawMany()
       .then((rawElements) => rawElements.map(mapToUpcomingEventDto));
