@@ -1,11 +1,9 @@
-import { Event } from 'src/event/event.entity';
 import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -34,9 +32,6 @@ export class Association {
 
   @Column()
   membership_fee: number;
-
-  @OneToMany(() => Event, (event) => event.association, { lazy: true })
-  events: Event[];
 
   @ManyToMany(() => User, { lazy: true })
   @JoinTable({
