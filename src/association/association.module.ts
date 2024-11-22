@@ -9,5 +9,6 @@ import { EventModule } from 'src/event/event.module';
   imports: [TypeOrmModule.forFeature([Association]), EventModule],
   providers: [AssociationService],
   controllers: [AssociationController],
+  exports: [AssociationService],
 })
 export class AssociationModule {}
