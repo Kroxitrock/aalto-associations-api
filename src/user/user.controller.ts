@@ -1,8 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Association } from 'src/association/association.entity';
 import { Event } from 'src/event/event.entity';
 import { UpcomingEventDto } from './upcoming-event.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -18,8 +19,9 @@ export class UserController {
     return this.userService.finAllUpcomingEventsOfAssociationsOfUser(1);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/me/events')
-  getMyEvents(): Promise<Event[]> {
+  getMyEvents(@Req() request): Promise<Event[]> {
     return this.userService.findOne(1).then((user) => user.events ?? []);
   }
 }
