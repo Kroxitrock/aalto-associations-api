@@ -77,12 +77,12 @@ export class AssociationService {
   }
 
   create(association: Association, userId: number) {
-    this.associationRepository.save(association);
-
-    this.associationMembersRepository.save({
-      association_id: association.id,
-      user_id: userId,
-      role: AssociationRole.LEADER,
+    this.associationRepository.save(association).then((newAssociation) => {
+      this.associationMembersRepository.save({
+        association_id: newAssociation.id,
+        user_id: userId,
+        role: AssociationRole.LEADER,
+      });
     });
   }
 
