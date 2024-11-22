@@ -9,6 +9,7 @@ export interface UpcomingEventDto {
   capacity: number;
   associationName: string;
   joined: boolean;
+  participants: number;
 }
 
 export function mapToUpcomingEventDto(data: any): UpcomingEventDto {
@@ -23,5 +24,6 @@ export function mapToUpcomingEventDto(data: any): UpcomingEventDto {
     capacity: data.event_capacity,
     associationName: data.association_name,
     joined: data.joined,
+    participants: Number(data.participants),
   };
 }
