@@ -2,6 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Association } from 'src/association/association.entity';
 import { Event } from 'src/event/event.entity';
+import {
+  mapToUpcomingEventDto,
+  UpcomingEventDto,
+} from 'src/user/upcoming-event.dto';
 import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
 @Injectable()
@@ -25,8 +29,27 @@ export class EventService {
     return this.eventRepository.findOneBy({ id });
   }
 
-  findByAssociationId(associationId: number): Promise<Event[]> {
-    return this.eventRepository.findBy({ association: { id: associationId } });
+  findByAssociationId(
+    associationId: number,
+    userId: number,
+  ): Promise<UpcomingEventDto[]> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.participants', 'eventUser')
+      .addSelect('COUNT(eventUser.id)', 'participants')
+      .addSelect(
+        'CASE WHEN MAX(CASE WHEN eventUser.id = :userId THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END',
+        'joined',
+      )
+      .where('event.association.id = :associationId', { associationId })
+      .andWhere('event.date >= :currentDate', {
+        currentDate: new Date().toISOString(),
+      })
+      .groupBy('event.id')
+      .orderBy('event.date', 'ASC')
+      .setParameters({ userId })
+      .getRawMany()
+      .then((rawElements) => rawElements.map(mapToUpcomingEventDto));
   }
 
   async addParticipant(eventId: number, userId: number) {
