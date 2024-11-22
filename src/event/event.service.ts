@@ -9,11 +9,12 @@ export class EventService {
   constructor(
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
-    @InjectRepository(Association)
-    private associationRepository: Repository<Association>,
 
     @InjectRepository(User)
     private userRepository: Repository<User>,
+
+    @InjectRepository(Association)
+    private associationRepository: Repository<Association>,
   ) {}
 
   findAll(): Promise<Event[]> {
@@ -28,28 +29,26 @@ export class EventService {
     return this.eventRepository.findBy({ association: { id: associationId } });
   }
 
+  async addParticipant(eventId: number, userId: number) {
+    const event = await this.eventRepository.findOneBy({ id: eventId });
+    if (!event) {
+      throw new NotFoundException(`Event with ID ${eventId} not found.`);
+    }
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new NotFoundException(`Event with ID ${userId} not found.`);
+    }
+    const participants = await event.participants;
+    participants.push(user);
+    await this.eventRepository.save(event);
+  }
+
   async create(event: Event) {
     const association = await this.associationRepository.findOneBy({
       id: event.association.id,
     });
     event.association = association;
     await this.eventRepository.save(event);
-  }
-
-  async addParticipant(eventId: number, userId: number) {
-    this.eventRepository.findOneBy({ id: eventId }).then((event) => {
-      if (!event) {
-        throw new NotFoundException(`Event with ID ${eventId} not found.`);
-      }
-
-      this.userRepository.findOneBy({ id: userId }).then((user) => {
-        if (!user) {
-          throw new NotFoundException(`Event with ID ${userId} not found.`);
-        }
-        event.participants.push(user);
-        this.eventRepository.save(event);
-      });
-    });
   }
 
   async remove(id: number): Promise<void> {
