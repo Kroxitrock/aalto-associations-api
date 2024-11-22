@@ -14,5 +14,6 @@ import { AssociationMembers } from 'src/association-members/association-member.e
   ],
   providers: [AssociationService],
   controllers: [AssociationController],
+  exports: [AssociationService],
 })
 export class AssociationModule {}
