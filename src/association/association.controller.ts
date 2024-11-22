@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AssociationService } from './association.service';
-import { Association } from './association.entity';
+import { Association, AssociationRole } from './association.entity';
 import { Event } from '../event/event.entity';
 import { EventService } from 'src/event/event.service';
 
@@ -26,5 +26,11 @@ export class AssociationController {
   @Get('/:id')
   getAssociationById(@Param('id') id: number): Promise<Association> {
     return this.associationService.findOne(id);
+  }
+
+  @Get('/:id/join')
+  // @Post('/:id/join')
+  async joinEvent(@Param('id') eventId: number) {
+    this.associationService.addMember(eventId, 1, AssociationRole.MEMBER);
   }
 }
