@@ -76,15 +76,21 @@ export class AssociationService {
     return response;
   }
 
+  create(association: Association, userId: number) {
+    this.associationRepository.save(association).then((newAssociation) => {
+      this.associationMembersRepository.save({
+        association_id: newAssociation.id,
+        user_id: userId,
+        role: AssociationRole.LEADER,
+      });
+    });
+  }
+
   async remove(id: number): Promise<void> {
     await this.associationRepository.delete(id);
   }
 
-  async addMember(
-    associationId: number,
-    userId: number,
-    associationMemberRole: AssociationRole,
-  ) {
+  async addMember(associationId: number, userId: number) {
     const association = await this.associationRepository.findOneBy({
       id: associationId,
     });
@@ -100,7 +106,7 @@ export class AssociationService {
     const userAssociationEntry = {
       association_id: associationId,
       user_id: userId,
-      role: associationMemberRole,
+      role: AssociationRole.MEMBER,
     };
 
     await this.аssociationMembersRepository.save(userAssociationEntry);

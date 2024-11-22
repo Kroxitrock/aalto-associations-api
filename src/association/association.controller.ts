@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AssociationService } from './association.service';
 import { Association } from './association.entity';
 import { Event } from '../event/event.entity';
@@ -33,6 +33,11 @@ export class AssociationController {
 
   @Post('/:id/join')
   async joinEvent(@Param('id') eventId: number) {
-    this.associationService.addMember(eventId, 1, AssociationRole.MEMBER);
+    this.associationService.addMember(eventId, 1);
+  }
+
+  @Post()
+  async createAssociation(@Body() association: Association) {
+    return this.associationService.create(association, 1);
   }
 }
