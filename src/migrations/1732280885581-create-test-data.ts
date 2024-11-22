@@ -157,6 +157,17 @@ export class CreateTestData1732280885581 implements MigrationInterface {
         DELETE FROM public.association WHERE name='Aalto Daigaku';
         DELETE FROM public.association WHERE name='Otakut';
         DELETE FROM public.association WHERE name='Aalto-Basket';
+
+        DELETE FROM public."event" WHERE id=1;
+        DELETE FROM public."event" WHERE id=2;
+        DELETE FROM public."event" WHERE id=3;
+        DELETE FROM public."event" WHERE id=4;
+        DELETE FROM public."event" WHERE id=5;
+        DELETE FROM public."event" WHERE id=6;
+        DELETE FROM public."event" WHERE id=7;
+        DELETE FROM public."event" WHERE id=8;
+        DELETE FROM public."event" WHERE id=9;
+        DELETE FROM public."event" WHERE id=10;
         `);
       }
 }
