@@ -1,4 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './event.entity';
 import { User } from 'src/user/user.entity';
@@ -22,5 +28,10 @@ export class EventController {
     return this.eventService
       .findOne(id)
       .then((event) => event.participants ?? []);
+  }
+
+  @Get('/:id/join')
+  async joinEvent(@Param('id') eventId: number) {
+    this.eventService.addParticipant(eventId, 1);
   }
 }
