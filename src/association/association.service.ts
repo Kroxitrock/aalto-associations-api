@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AssociationMembers } from 'src/association-members/association-member.entity';
 import {
-  Association,
+  AssociationMembers,
   AssociationRole,
-} from 'src/association/association.entity';
+} from 'src/association-members/association-member.entity';
+import { Association } from 'src/association/association.entity';
 import { User } from 'src/user/user.entity';
 import { ILike, Repository } from 'typeorm';
 
@@ -48,7 +48,7 @@ export class AssociationService {
   async addMember(
     associationId: number,
     userId: number,
-    associationMemberType: AssociationRole,
+    associationMemberRole: AssociationRole,
   ) {
     const association = await this.associationRepository.findOneBy({
       id: associationId,
@@ -65,7 +65,7 @@ export class AssociationService {
     const userAssociationEntry = {
       association_id: associationId,
       user_id: userId,
-      member_type: associationMemberType,
+      role: associationMemberRole,
     };
 
     await this.аssociationMembersRepository.save(userAssociationEntry);

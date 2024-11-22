@@ -41,8 +41,3 @@ export class Association {
   })
   users: User[];
 }
-
-export enum AssociationRole {
-  MEMBER,
-  LEADER,
-}
