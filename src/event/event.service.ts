@@ -26,20 +26,19 @@ export class EventService {
   }
 
   async addParticipant(eventId: number, userId: number) {
-    const event = await this.eventRepository.findOneBy({ id: eventId });
-    if (!event) {
-      throw new NotFoundException(`Event with ID ${eventId} not found.`);
-    }
+    this.eventRepository.findOneBy({ id: eventId }).then((event) => {
+      if (!event) {
+        throw new NotFoundException(`Event with ID ${eventId} not found.`);
+      }
 
-    const user = await this.userRepository.findOneBy({ id: userId });
-    if (!user) {
-      throw new NotFoundException(`Event with ID ${userId} not found.`);
-    }
-
-    const participants = await event.participants;
-
-    participants.push(user);
-    await this.eventRepository.save(event);
+      this.userRepository.findOneBy({ id: userId }).then((user) => {
+        if (!user) {
+          throw new NotFoundException(`Event with ID ${userId} not found.`);
+        }
+        event.participants.push(user);
+        this.eventRepository.save(event);
+      });
+    });
   }
 
   async remove(id: number): Promise<void> {
