@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './event.entity';
 import { User } from 'src/user/user.entity';
@@ -35,5 +42,10 @@ export class EventController {
     };
 
     return this.eventService.create(event);
+  }
+
+  @Post('/:id/join')
+  async joinEvent(@Param('id') eventId: number) {
+    this.eventService.addParticipant(eventId, 1);
   }
 }
