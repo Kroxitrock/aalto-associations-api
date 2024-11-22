@@ -30,7 +30,7 @@ export class EventController {
       .then((event) => event.participants ?? []);
   }
 
-  @Get('/:id/join')
+  @Post('/:id/join')
   async joinEvent(@Param('id') eventId: number) {
     this.eventService.addParticipant(eventId, 1);
   }
