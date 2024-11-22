@@ -7,6 +7,7 @@ import {
 import { Association } from 'src/association/association.entity';
 import { User } from 'src/user/user.entity';
 import { ILike, Repository } from 'typeorm';
+import AssociationWithRoleDto from './association-with-role.dto';
 
 @Injectable()
 export class AssociationService {
@@ -19,6 +20,9 @@ export class AssociationService {
 
     @InjectRepository(AssociationMembers)
     private аssociationMembersRepository: Repository<AssociationMembers>,
+
+    @InjectRepository(AssociationMembers)
+    private associationMembersRepository: Repository<AssociationMembers>,
   ) {}
 
   findFiltered(nameSearch?: string): Promise<Association[]> {
@@ -37,8 +41,39 @@ export class AssociationService {
     return this.associationRepository.find();
   }
 
-  findOne(id: number): Promise<Association | null> {
-    return this.associationRepository.findOneBy({ id });
+  async findOneWithRole(
+    associationId: number,
+    userId: number,
+  ): Promise<AssociationWithRoleDto> {
+    const association = await this.associationRepository.findOne({
+      where: { id: associationId },
+      relations: ['users'],
+    });
+
+    if (!association) {
+      throw new NotFoundException(
+        `Association with ID ${associationId} not found.`,
+      );
+    }
+
+    const member = await this.associationMembersRepository.findOne({
+      where: { association_id: associationId, user_id: userId },
+    });
+
+    const response: AssociationWithRoleDto = {
+      id: association.id,
+      name: association.name,
+      logo: association.logo,
+      description: association.description,
+      telegram: association.telegram,
+      phone: association.phone,
+      email: association.email,
+      membership_fee: association.membership_fee,
+      users: association.users,
+      role: member ? member.role : null,
+    };
+
+    return response;
   }
 
   async remove(id: number): Promise<void> {

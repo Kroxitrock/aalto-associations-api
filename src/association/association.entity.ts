@@ -1,9 +1,11 @@
+import { AssociationMembers } from 'src/association-members/association-member.entity';
 import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
