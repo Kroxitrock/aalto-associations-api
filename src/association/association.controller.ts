@@ -5,6 +5,7 @@ import { Event } from '../event/event.entity';
 import { EventService } from 'src/event/event.service';
 import { AssociationRole } from 'src/association-members/association-member.entity';
 import AssociationWithRoleDto from './association-with-role.dto';
+import { UpcomingEventDto } from 'src/user/upcoming-event.dto';
 
 @Controller('associations')
 export class AssociationController {
@@ -21,8 +22,8 @@ export class AssociationController {
   }
 
   @Get('/:id/events')
-  getAssociationEvents(@Param('id') id: number): Promise<Event[]> {
-    return this.eventService.findByAssociationId(id);
+  getAssociationEvents(@Param('id') id: number): Promise<UpcomingEventDto[]> {
+    return this.eventService.findByAssociationId(id, 1);
   }
 
   @Get('/:id')
