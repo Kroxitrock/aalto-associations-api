@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './event.entity';
@@ -42,6 +43,11 @@ export class EventController {
     };
 
     return this.eventService.create(event);
+  }
+
+  @Put('/:id')
+  async updateEvent(@Param('id') eventId: number, @Body() event: Event) {
+    this.eventService.update(event, eventId);
   }
 
   @Post('/:id/join')

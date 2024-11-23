@@ -86,6 +86,19 @@ export class AssociationService {
     });
   }
 
+  update(association: Association, associationId: number) {
+    this.associationRepository.findOneBy({ id: associationId }).then((data) => {
+      data.name = association.name;
+      data.description = association.description;
+      data.email = association.email;
+      data.phone = association.phone;
+      data.telegram = association.telegram;
+      data.membership_fee = association.membership_fee;
+      data.logo = association.logo;
+      this.associationRepository.save(data);
+    });
+  }
+
   async remove(id: number): Promise<void> {
     await this.associationRepository.delete(id);
   }

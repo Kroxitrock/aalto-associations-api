@@ -66,6 +66,20 @@ export class EventService {
     await this.eventRepository.save(event);
   }
 
+  update(event: Event, eventId: number) {
+    this.eventRepository.findOneBy({ id: eventId }).then((data) => {
+      data.title = event.title;
+      data.description = event.description;
+      data.picture = event.picture;
+      data.date = event.date;
+      data.location = event.location;
+      data.price = event.price;
+      data.capacity = event.capacity;
+
+      this.eventRepository.save(data);
+    });
+  }
+
   //TODO: Date time is not saved in the db, probably backend issue
   async create(event: Event) {
     const association = await this.associationRepository.findOneBy({
