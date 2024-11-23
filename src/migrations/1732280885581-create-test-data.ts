@@ -1,9 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateTestData1732280885581 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`
         INSERT INTO public.association
         (id, "name", logo, description, telegram, phone, email, membership_fee)
         VALUES(1, 'Aalto Salsa Society', 'https://www.ayy.fi/sites/g/files/flghsv231/files/styles/o_690w_ah_n/public/2024-09/Aalto_Salsa_Society.png?itok=rkpOM-wy', 'The Aalto Salsa Society is a welcoming community of Latin dance enthusiasts! We teach Salsa and Bachata classes and organize various events throughout the year. 
@@ -93,61 +92,61 @@ export class CreateTestData1732280885581 implements MigrationInterface {
         
 
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(1, 'Salsa class', 'Discover the rhythm and passion of salsa dancing in a fun and engaging environment! Whether you''re a complete beginner or an experienced dancer, our Salsa Class welcomes all skill levels to sway to the infectious beats of Latin music. Led by a dynamic instructor, you''ll learn foundational moves, partner work, and styling tips that will leave you feeling confident on the dance floor. Come solo or with a partner—either way, you''re guaranteed to leave with new moves and a smile!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES( 'Salsa class', 'Discover the rhythm and passion of salsa dancing in a fun and engaging environment! Whether you''re a complete beginner or an experienced dancer, our Salsa Class welcomes all skill levels to sway to the infectious beats of Latin music. Led by a dynamic instructor, you''ll learn foundational moves, partner work, and styling tips that will leave you feeling confident on the dance floor. Come solo or with a partner—either way, you''re guaranteed to leave with new moves and a smile!
 
         ', 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Salsa_dancing.jpg', '1.12.2024', 'JMT 1', 10, 15, 1);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(2, 'Let''s play basketball!', 'Grab your sneakers and join us for an adrenaline-packed basketball session! Whether you’re a seasoned player or just looking to shoot some hoops for fun, this friendly game is perfect for all skill levels. With team formations on-site, you''ll experience the thrill of competition and camaraderie. Warm up with drills, learn tips from fellow players, and enjoy an action-filled evening that combines fitness, teamwork, and a whole lot of fun!
+        ( title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES( 'Let''s play basketball!', 'Grab your sneakers and join us for an adrenaline-packed basketball session! Whether you’re a seasoned player or just looking to shoot some hoops for fun, this friendly game is perfect for all skill levels. With team formations on-site, you''ll experience the thrill of competition and camaraderie. Warm up with drills, learn tips from fellow players, and enjoy an action-filled evening that combines fitness, teamwork, and a whole lot of fun!
 
         ', 'https://contents.mediadecathlon.com/s810360/k$ce007b2ba4e512378df6a8ab44b46e68/440x249/gabarit-banner-page-nouvelle-collection-enfant-2020-PE.jpg?format=auto&quality=70&f=1024x0', '1.12.2024', 'Otaniemi', 5, 15, 10);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(3, 'Anime night @ JMT 1', 'Calling all anime enthusiasts! Join us for Anime Night at JMT 1, where we''ll screen some of the hottest and most beloved anime series and movies. Bring your favorite snacks, cuddle up in comfy seats, and immerse yourself in the vibrant worlds of Japanese animation. From action-packed adventures to heartwarming stories, there''s something for everyone. Plus, enjoy trivia games and prizes for true otakus!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Anime night @ JMT 1', 'Calling all anime enthusiasts! Join us for Anime Night at JMT 1, where we''ll screen some of the hottest and most beloved anime series and movies. Bring your favorite snacks, cuddle up in comfy seats, and immerse yourself in the vibrant worlds of Japanese animation. From action-packed adventures to heartwarming stories, there''s something for everyone. Plus, enjoy trivia games and prizes for true otakus!
 
         ', 'https://i.pinimg.com/originals/13/8b/d8/138bd88495ebf593673c7bf30d6e6033.jpg', '1.12.2024', 'SMT6', 12, 25, 9);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(4, 'Forest adventures', 'Escape the city and immerse yourself in nature with our Forest Adventures! Experience the beauty of the great outdoors as we trek through lush green trails, enjoy serene moments by hidden streams, and engage in fun team challenges along the way. Whether you''re a nature lover or just in need of a breath of fresh air, this event promises an unforgettable journey filled with laughter, exploration, and a deeper connection to the natural world.
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Forest adventures', 'Escape the city and immerse yourself in nature with our Forest Adventures! Experience the beauty of the great outdoors as we trek through lush green trails, enjoy serene moments by hidden streams, and engage in fun team challenges along the way. Whether you''re a nature lover or just in need of a breath of fresh air, this event promises an unforgettable journey filled with laughter, exploration, and a deeper connection to the natural world.
 
         ', 'https://offerengine.theentertainerme.com/forest-adventure-x171990/merchant_profile_%22hero%22_image_slide.2_%28retina%292024072301001.jpg', '1.12.2024', 'Otaniemi park', 10, 10, 3);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(5, 'Pole dance for beginners', 'Unleash your inner strength and confidence with our Pole Dance for Beginners class! This empowering and fun-filled session is designed for anyone curious about trying pole dancing for the first time. Our experienced instructor will guide you through basic spins, grips, and techniques while focusing on building strength, flexibility, and self-expression. No experience needed—just bring your enthusiasm and prepare to feel fabulous!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Pole dance for beginners', 'Unleash your inner strength and confidence with our Pole Dance for Beginners class! This empowering and fun-filled session is designed for anyone curious about trying pole dancing for the first time. Our experienced instructor will guide you through basic spins, grips, and techniques while focusing on building strength, flexibility, and self-expression. No experience needed—just bring your enthusiasm and prepare to feel fabulous!
 
         ', 'https://static.wixstatic.com/media/0addb6_e306ba86d46644e2bc778989584d8dad~mv2.jpg/v1/fill/w_536,h_804,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/pole%20dance%20Helsinki.jpg', '1.12.2024', 'JMT 1', 15, 12, 6);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(6, 'Steamy Sauna Sunday', 'Relax and rejuvenate with our Steamy Sauna Sunday! This traditional Finnish experience invites you to unwind in a warm, soothing sauna, perfect for melting away stress and recharging your spirit. Bring your friends, enjoy light refreshments, and embrace the therapeutic power of steam. Whether you''re a sauna enthusiast or new to the tradition, this is your chance to indulge in ultimate relaxation.
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Steamy Sauna Sunday', 'Relax and rejuvenate with our Steamy Sauna Sunday! This traditional Finnish experience invites you to unwind in a warm, soothing sauna, perfect for melting away stress and recharging your spirit. Bring your friends, enjoy light refreshments, and embrace the therapeutic power of steam. Whether you''re a sauna enthusiast or new to the tradition, this is your chance to indulge in ultimate relaxation.
 
         ', 'https://cdn.visittampere.fi/A3uTHfZwbRz-iw-7DDuvqWl7P_qLt8ylLIOIiJqwvZI/rs:fill:780:1040/plain/https%3A%2F%2Fvisittampere.fi%2Fwp-content%2Fuploads%2F2024%2F02%2FVisit_Tampere_Suolijarven_Sauna_Suolijarvi_Laura_Vanzo-12-2-780x1040.jpg@webp', '1.12.2024', 'JMT 5', 10, 8, 4);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(7, 'Mahjong night', 'Challenge your mind and test your strategy at Mahjong Night! Whether you''re a seasoned player or completely new to the game, this event offers a welcoming atmosphere to learn, play, and connect with others. Gather around the table for thrilling rounds of this classic Chinese tile game, enjoy light refreshments, and revel in the camaraderie of a shared love for strategy and tradition.
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Mahjong night', 'Challenge your mind and test your strategy at Mahjong Night! Whether you''re a seasoned player or completely new to the game, this event offers a welcoming atmosphere to learn, play, and connect with others. Gather around the table for thrilling rounds of this classic Chinese tile game, enjoy light refreshments, and revel in the camaraderie of a shared love for strategy and tradition.
 
         ', 'https://www.hackingchinese.com/wp-content/uploads/2015/04/mahjong-game.jpg', '1.12.2024', 'Undergraduate center', 5, 15, 8);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(8, 'Hike @ Nuuksio National Park', 'Experience the breathtaking beauty of Nuuksio National Park with our guided hike! Venture through serene forests, sparkling lakes, and rugged trails as we explore one of Finland''s natural treasures. Perfect for both seasoned hikers and first-timers, this adventure promises stunning views, fresh air, and an opportunity to connect with nature. Don’t forget to pack your camera and a snack for the journey!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Hike @ Nuuksio National Park', 'Experience the breathtaking beauty of Nuuksio National Park with our guided hike! Venture through serene forests, sparkling lakes, and rugged trails as we explore one of Finland''s natural treasures. Perfect for both seasoned hikers and first-timers, this adventure promises stunning views, fresh air, and an opportunity to connect with nature. Don’t forget to pack your camera and a snack for the journey!
 
         ', 'https://www.alltrails.com/_next/image?url=https%3A%2F%2Fimages.alltrails.com%2FeyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvNjIzMjQzODIvOGI1MjkzZjVjMjJjZTljMzA2NmQ3YjRkYjI3NjRmN2EuanBnIiwiZWRpdHMiOnsidG9Gb3JtYXQiOiJ3ZWJwIiwicmVzaXplIjp7IndpZHRoIjoxMDgwLCJoZWlnaHQiOjcwMCwiZml0IjoiY292ZXIifSwicm90YXRlIjpudWxsLCJqcGVnIjp7InRyZWxsaXNRdWFudGlzYXRpb24iOnRydWUsIm92ZXJzaG9vdERlcmluZ2luZyI6dHJ1ZSwib3B0aW1pc2VTY2FucyI6dHJ1ZSwicXVhbnRpc2F0aW9uVGFibGUiOjN9fX0%3D&w=3840&q=90', '1.12.2024', 'Nuuksio National Park', 5, 20, 5);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(9, 'Beer Pong Afterparty', 'Get ready for an evening of fun, laughter, and friendly competition at our Beer Pong Afterparty! Whether you''re a pro at sinking cups or just here for the vibe, this lively event guarantees a good time. Enjoy upbeat music, cheer on your teammates, and take part in the ultimate test of aim and strategy. Win or lose, the camaraderie and unforgettable memories make everyone a champion!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Beer Pong Afterparty', 'Get ready for an evening of fun, laughter, and friendly competition at our Beer Pong Afterparty! Whether you''re a pro at sinking cups or just here for the vibe, this lively event guarantees a good time. Enjoy upbeat music, cheer on your teammates, and take part in the ultimate test of aim and strategy. Win or lose, the camaraderie and unforgettable memories make everyone a champion!
 
         ', 'https://www.famoushostels.com/wp-content/uploads/porto-beer-pong-4.jpg', '1.12.2024', 'Smokki', 10, 12, 7);
         INSERT INTO public."event"
-        (id, title, description, picture, "date", "location", price, capacity, association_id)
-        VALUES(10, 'Let''s fix stuff together!', 'Roll up your sleeves and bring your broken treasures to our Let''s Fix Stuff Together! workshop. From wobbly chairs to electronic gadgets, our skilled volunteers will guide you in repairing your belongings. It’s a sustainable, budget-friendly, and community-driven way to give your items a second life. Don’t have anything to fix? Drop by to lend a hand, share ideas, or simply enjoy the satisfaction of seeing something restored!
+        (title, description, picture, "date", "location", price, capacity, association_id)
+        VALUES('Let''s fix stuff together!', 'Roll up your sleeves and bring your broken treasures to our Let''s Fix Stuff Together! workshop. From wobbly chairs to electronic gadgets, our skilled volunteers will guide you in repairing your belongings. It’s a sustainable, budget-friendly, and community-driven way to give your items a second life. Don’t have anything to fix? Drop by to lend a hand, share ideas, or simply enjoy the satisfaction of seeing something restored!
 
         ', 'https://www.northlandcollege.edu/files/221201-155-800x640.jpg', '2.12.2024', 'Car club JMT 1', 10, 20, 2);
         
         `);
-      }
-    
-      public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`DELETE FROM public.association WHERE name='Aalto Salsa Society';
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`DELETE FROM public.association WHERE name='Aalto Salsa Society';
         DELETE FROM public.association WHERE name='Aalto University's Mechatronics Club (AMEK)';
         DELETE FROM public.association WHERE name='A!dventures';
         DELETE FROM public.association WHERE name='Polytechnic Sauna Society';
@@ -169,5 +168,5 @@ export class CreateTestData1732280885581 implements MigrationInterface {
         DELETE FROM public."event" WHERE id=9;
         DELETE FROM public."event" WHERE id=10;
         `);
-      }
+  }
 }
