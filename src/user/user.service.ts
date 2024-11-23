@@ -30,6 +30,7 @@ export class UserService {
         'CASE WHEN MAX(CASE WHEN eventUser.id = :userId THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END',
         'joined',
       )
+      .addSelect('COUNT(eventUser.id)', 'participants')
       .where('user.id = :userId', { userId })
       .andWhere('event.date >= :currentDate', {
         currentDate: new Date().toISOString(),

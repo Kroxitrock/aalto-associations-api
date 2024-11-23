@@ -16,6 +16,9 @@ export class User {
   @Column()
   name: string;
 
+  @Column()
+  email: string;
+
   @ManyToMany(() => Association, { lazy: true })
   @JoinTable({
     name: 'association_members',

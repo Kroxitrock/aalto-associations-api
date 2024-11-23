@@ -9,6 +9,7 @@ import { AssociationModule } from './association/association.module';
 import { AssociationApplicationModule } from './association-application/association-application.module';
 import { EventRequestModule } from './event-request/event-request.module';
 import { AssociationMembersModule } from './association-members/association-members.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AssociationMembersModule } from './association-members/association-memb
     AssociationApplicationModule,
     EventRequestModule,
     AssociationMembersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
