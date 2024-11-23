@@ -32,7 +32,7 @@ export class EventController {
     @Param('id') id: number,
     @Req() request,
   ): Promise<EventDetailsDto> {
-    return this.eventService.findOneById(id, request.user.id);
+    return this.eventService.findOneById(id, request.user?.id);
   }
 
   @Get('/:id/participants')

@@ -41,7 +41,7 @@ export class EventService {
     return this.eventRepository.findOneBy({ id });
   }
 
-  findOneById(id: number, userId: number): Promise<EventDetailsDto | null> {
+  findOneById(id: number, userId?: number): Promise<EventDetailsDto | null> {
     return this.findOne(id).then(async (event) => {
       const particicipans = await event.participants;
       const joined = particicipans.some((user) => user.id === userId);
