@@ -36,7 +36,9 @@ export class Event {
   @Column()
   capacity: number;
 
-  @ManyToOne(() => Association, (association) => association.id)
+  @ManyToOne(() => Association, (association) => association.id, {
+    eager: true,
+  })
   @JoinColumn({ name: 'association_id' })
   association: Association;
 

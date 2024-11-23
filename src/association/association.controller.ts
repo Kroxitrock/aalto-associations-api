@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -52,6 +53,14 @@ export class AssociationController {
   @Post('/:id/join')
   async joinEvent(@Param('id') eventId: number, @Req() request) {
     this.associationService.addMember(eventId, request.user.id);
+  }
+
+  @Put('/:id')
+  async updateAssociation(
+    @Param('id') associationId: number,
+    @Body() association: Association,
+  ) {
+    this.associationService.update(association, associationId);
   }
 
   @UseGuards(JwtAuthGuard)

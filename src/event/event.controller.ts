@@ -6,6 +6,7 @@ import {
   Post,
   Req,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './event.entity';
@@ -13,6 +14,8 @@ import { User } from 'src/user/user.entity';
 import CreateEventDto from './create-event.dto';
 import { Association } from 'src/association/association.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import EventDetailsDto from './eventDetails.dto';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth.guard';
 
 @Controller('events')
 export class EventController {
@@ -23,9 +26,13 @@ export class EventController {
     return this.eventService.findAll();
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
   @Get('/:id')
-  getEventById(@Param('id') id: number): Promise<Event> {
-    return this.eventService.findOne(id);
+  getEventById(
+    @Param('id') id: number,
+    @Req() request,
+  ): Promise<EventDetailsDto> {
+    return this.eventService.findOneById(id, request.user.id);
   }
 
   @Get('/:id/participants')
@@ -40,16 +47,25 @@ export class EventController {
   async createEvent(@Body() createEventDto: CreateEventDto, @Req() request) {
     this.eventService.validateUserIsLeaderOfAssociation(
       request.user.id,
-      createEventDto.associationId,
+      createEventDto.association.id,
     );
 
     const event = {
       ...new Event(),
       ...createEventDto,
-      association: { id: createEventDto.associationId } as Association,
     };
 
-    return this.eventService.create(event);
+    return this.eventService.create(
+      event,
+      request.user.id,
+      createEventDto.association.id,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('/:id')
+  async updateEvent(@Param('id') eventId: number, @Body() event: Event) {
+    this.eventService.update(event, eventId);
   }
 
   @UseGuards(JwtAuthGuard)

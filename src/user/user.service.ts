@@ -4,6 +4,10 @@ import { Event } from 'src/event/event.entity';
 import { User } from 'src/user/user.entity';
 import { Repository } from 'typeorm';
 import { mapToUpcomingEventDto, UpcomingEventDto } from './upcoming-event.dto';
+import {
+  AssociationMembers,
+  AssociationRole,
+} from '../association-members/association-member.entity';
 
 @Injectable()
 export class UserService {
@@ -12,6 +16,8 @@ export class UserService {
     private userRepository: Repository<User>,
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
+    @InjectRepository(AssociationMembers)
+    private associationMembersRepository: Repository<AssociationMembers>,
   ) {}
 
   findAll(): Promise<User[]> {
@@ -48,5 +54,17 @@ export class UserService {
 
   async remove(id: number): Promise<void> {
     await this.userRepository.delete(id);
+  }
+
+  async roleForAssociation(
+    userId: number,
+    associationId: number,
+  ): Promise<AssociationRole | 'NONE'> {
+    return this.associationMembersRepository
+      .findOneBy({
+        association: { id: associationId },
+        user: { id: userId },
+      })
+      .then((associationMember) => associationMember?.role ?? 'NONE');
   }
 }

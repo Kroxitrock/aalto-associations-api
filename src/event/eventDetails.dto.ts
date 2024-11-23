@@ -1,6 +1,5 @@
-import { Association } from 'src/association/association.entity';
-
-export default interface CreateEventDto {
+export default interface EventDetailsDto {
+  id?: number;
   title: string;
   description?: string;
   picture?: string;
@@ -8,5 +7,5 @@ export default interface CreateEventDto {
   location?: string;
   price: number;
   capacity?: number;
-  association: Association;
+  joined: boolean;
 }

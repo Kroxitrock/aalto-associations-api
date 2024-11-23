@@ -16,6 +16,7 @@ import {
 } from 'src/user/upcoming-event.dto';
 import { User } from 'src/user/user.entity';
 import { Equal, Repository } from 'typeorm';
+import EventDetailsDto from './eventDetails.dto';
 @Injectable()
 export class EventService {
   constructor(
@@ -27,6 +28,7 @@ export class EventService {
 
     @InjectRepository(Association)
     private associationRepository: Repository<Association>,
+
     @InjectRepository(AssociationMembers)
     private associationMemberRepository: Repository<AssociationMembers>,
   ) {}
@@ -37,6 +39,19 @@ export class EventService {
 
   findOne(id: number): Promise<Event | null> {
     return this.eventRepository.findOneBy({ id });
+  }
+
+  findOneById(id: number, userId: number): Promise<EventDetailsDto | null> {
+    return this.findOne(id).then(async (event) => {
+      const particicipans = await event.participants;
+      const joined = particicipans.some((user) => user.id === userId);
+
+      const eventDetails: EventDetailsDto = {
+        ...event,
+        joined,
+      };
+      return eventDetails;
+    });
   }
 
   findByAssociationId(
@@ -76,13 +91,31 @@ export class EventService {
     await this.eventRepository.save(event);
   }
 
-  //TODO: Date time is not saved in the db, probably backend issue
-  async create(event: Event) {
-    const association = await this.associationRepository.findOneBy({
-      id: event.association.id,
+  update(event: Event, eventId: number) {
+    this.eventRepository.findOneBy({ id: eventId }).then((data) => {
+      data.title = event.title;
+      data.description = event.description;
+      data.picture = event.picture;
+      data.date = event.date;
+      data.location = event.location;
+      data.price = event.price;
+      data.capacity = event.capacity;
+
+      this.eventRepository.save(data);
     });
-    event.association = association;
-    await this.eventRepository.save(event);
+  }
+
+  create(event: Event, userId: number, associationId: number) {
+    const association = this.associationRepository
+      .findOneBy({
+        id: associationId,
+      })
+      .then((association) => {
+        event.association = association;
+        this.eventRepository.save(event).then((event) => {
+          this.addParticipant(event.id, userId);
+        });
+      });
   }
 
   async remove(id: number): Promise<void> {
