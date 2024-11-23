@@ -41,18 +41,22 @@ export class EventController {
   async createEvent(@Body() createEventDto: CreateEventDto, @Req() request) {
     this.eventService.validateUserIsLeaderOfAssociation(
       request.user.id,
-      createEventDto.associationId,
+      createEventDto.association.id,
     );
 
     const event = {
       ...new Event(),
       ...createEventDto,
-      association: { id: createEventDto.associationId } as Association,
     };
 
-    return this.eventService.create(event);
+    return this.eventService.create(
+      event,
+      request.user.id,
+      createEventDto.association.id,
+    );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/:id')
   async updateEvent(@Param('id') eventId: number, @Body() event: Event) {
     this.eventService.update(event, eventId);

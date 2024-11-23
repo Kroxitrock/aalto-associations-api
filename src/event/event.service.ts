@@ -27,6 +27,7 @@ export class EventService {
 
     @InjectRepository(Association)
     private associationRepository: Repository<Association>,
+
     @InjectRepository(AssociationMembers)
     private associationMemberRepository: Repository<AssociationMembers>,
   ) {}
@@ -90,13 +91,17 @@ export class EventService {
     });
   }
 
-  //TODO: Date time is not saved in the db, probably backend issue
-  async create(event: Event) {
-    const association = await this.associationRepository.findOneBy({
-      id: event.association.id,
-    });
-    event.association = association;
-    await this.eventRepository.save(event);
+  create(event: Event, userId: number, associationId: number) {
+    const association = this.associationRepository
+      .findOneBy({
+        id: associationId,
+      })
+      .then((association) => {
+        event.association = association;
+        this.eventRepository.save(event).then((event) => {
+          this.addParticipant(event.id, userId);
+        });
+      });
   }
 
   async remove(id: number): Promise<void> {

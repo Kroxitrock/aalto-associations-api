@@ -1,3 +1,5 @@
+import { Association } from 'src/association/association.entity';
+
 export default interface CreateEventDto {
   title: string;
   description?: string;
@@ -6,5 +8,5 @@ export default interface CreateEventDto {
   location?: string;
   price: number;
   capacity?: number;
-  associationId: number;
+  association: Association;
 }
