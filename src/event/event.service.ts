@@ -16,6 +16,7 @@ import {
 } from 'src/user/upcoming-event.dto';
 import { User } from 'src/user/user.entity';
 import { Equal, Repository } from 'typeorm';
+import EventDetailsDto from './eventDetails.dto';
 @Injectable()
 export class EventService {
   constructor(
@@ -38,6 +39,19 @@ export class EventService {
 
   findOne(id: number): Promise<Event | null> {
     return this.eventRepository.findOneBy({ id });
+  }
+
+  findOneById(id: number, userId: number): Promise<EventDetailsDto | null> {
+    return this.findOne(id).then(async (event) => {
+      const particicipans = await event.participants;
+      const joined = particicipans.some((user) => user.id === userId);
+
+      const eventDetails: EventDetailsDto = {
+        ...event,
+        joined,
+      };
+      return eventDetails;
+    });
   }
 
   findByAssociationId(
