@@ -14,6 +14,8 @@ import { User } from 'src/user/user.entity';
 import CreateEventDto from './create-event.dto';
 import { Association } from 'src/association/association.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import EventDetailsDto from './eventDetails.dto';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth.guard';
 
 @Controller('events')
 export class EventController {
@@ -24,9 +26,13 @@ export class EventController {
     return this.eventService.findAll();
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
   @Get('/:id')
-  getEventById(@Param('id') id: number): Promise<Event> {
-    return this.eventService.findOne(id);
+  getEventById(
+    @Param('id') id: number,
+    @Req() request,
+  ): Promise<EventDetailsDto> {
+    return this.eventService.findOneById(id, request.user.id);
   }
 
   @Get('/:id/participants')
