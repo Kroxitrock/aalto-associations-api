@@ -58,11 +58,6 @@ export class EventController {
     this.eventService.update(event, eventId);
   }
 
-  @Put('/:id')
-  async updateEvent(@Param('id') eventId: number, @Body() event: Event) {
-    this.eventService.update(event, eventId);
-  }
-
   @UseGuards(JwtAuthGuard)
   @Post('/:id/join')
   async joinEvent(@Param('id') eventId: number, @Req() request) {
