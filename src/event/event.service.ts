@@ -1,5 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  AssociationMembers,
+  AssociationRole,
+} from 'src/association-members/association-member.entity';
 import { Association } from 'src/association/association.entity';
 import { Event } from 'src/event/event.entity';
 import {
@@ -7,7 +15,7 @@ import {
   UpcomingEventDto,
 } from 'src/user/upcoming-event.dto';
 import { User } from 'src/user/user.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 @Injectable()
 export class EventService {
   constructor(
@@ -19,6 +27,8 @@ export class EventService {
 
     @InjectRepository(Association)
     private associationRepository: Repository<Association>,
+    @InjectRepository(AssociationMembers)
+    private associationMemberRepository: Repository<AssociationMembers>,
   ) {}
 
   findAll(): Promise<Event[]> {
@@ -91,5 +101,23 @@ export class EventService {
 
   async remove(id: number): Promise<void> {
     await this.eventRepository.delete(id);
+  }
+
+  validateUserIsLeaderOfAssociation(userId: number, associationId: number) {
+    const isLeader = this.associationMemberRepository.existsBy({
+      association: {
+        id: associationId,
+      },
+      user: {
+        id: userId,
+      },
+      role: Equal(AssociationRole.LEADER),
+    });
+
+    if (!isLeader) {
+      throw new UnauthorizedException(
+        'The logged in user does not have the required role, to create events for this association!',
+      );
+    }
   }
 }

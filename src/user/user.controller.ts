@@ -9,19 +9,29 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/me/associations')
-  getMyAssociations(): Promise<Association[]> {
-    return this.userService.findOne(1).then((user) => user.associations ?? []);
+  getMyAssociations(@Req() request): Promise<Association[]> {
+    return this.userService
+      .findOne(request.user.id)
+      .then((user) => user.associations ?? []);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/me/associations/events/upcoming')
-  getUpcomingEventsOfMyAssociations(): Promise<UpcomingEventDto[]> {
-    return this.userService.finAllUpcomingEventsOfAssociationsOfUser(1);
+  getUpcomingEventsOfMyAssociations(
+    @Req() request,
+  ): Promise<UpcomingEventDto[]> {
+    return this.userService.finAllUpcomingEventsOfAssociationsOfUser(
+      request.user.id,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/me/events')
   getMyEvents(@Req() request): Promise<Event[]> {
-    return this.userService.findOne(1).then((user) => user.events ?? []);
+    return this.userService
+      .findOne(request.user.id)
+      .then((user) => user.events ?? []);
   }
 }
