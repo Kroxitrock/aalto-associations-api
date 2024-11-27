@@ -23,7 +23,7 @@ export class AuthController {
       secure: false,
     });
 
-    res.redirect(process.env.REDIRECT_URL);
+    res.redirect(`${process.env.REDIRECT_URL}?token=${token}`);
     return res.send();
   }
 }
